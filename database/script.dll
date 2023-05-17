@@ -1,0 +1,18 @@
+-- health_coatching.users definition
+
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `mobile` varchar(255) NOT NULL,
+  `is_customer` tinyint(1) DEFAULT '0',
+  `is_admin` tinyint(1) DEFAULT '0',
+  `created_on` timestamp NULL DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `updated_on` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_mobile` (`mobile`),
+  UNIQUE KEY `unique_email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
