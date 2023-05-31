@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">{{ __('Login') }}</div>
     <div class="card-body">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ url('login') }}">
             @csrf
             @if (session('error'))
             <div class="alert alert-danger">
