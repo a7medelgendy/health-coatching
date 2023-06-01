@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class LoginController extends Controller
 {
@@ -48,16 +51,20 @@ class LoginController extends Controller
 
         // Compare the password
         if (Hash::check($request->password, $user->password)) {
-            // Password matches, so log in the user
             Auth::login($user);
+
             //save user data in session
             session(['user' => $user]);
 
             // Redirect the user based on the role
-            if ($user->is_admin) {
-                return redirect()->route('admin.dashboard');
+            if ($user->hasRole('admin')) {
+                return view('admin/dashboard');
+            } elseif ($user->hasRole('doctor')) {
+                return view('admin/dashboard');
+            } elseif ($user->hasRole('customer')) {
+                return view('customer/profile');
             } else {
-                return redirect()->route('customer.profile');
+                redirect()->url("/");
             }
         } else {
             // Password does not match

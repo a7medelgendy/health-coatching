@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('mobile')->unique();
-            $table->boolean('is_approved');
+            $table->boolean('is_approved')->default(false);
             $table->enum('gender', ['male', 'female']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

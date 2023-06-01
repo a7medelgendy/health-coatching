@@ -23,7 +23,12 @@ Route::get('/login', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'verifyUser']);
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-//Route::post('/login', 'LoginController@login');
+// Admin routes
+Route::prefix('admin')->middleware(['role:admin|doctor'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+});
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/customer/profile', [CustomerController::class, 'profile'])->name('customer.profile');
+// Customer routes
+Route::prefix('customer')->middleware(['role:customer'])->group(function () {
+    Route::get('/customer/profile', [CustomerController::class, 'profile']);
+});
